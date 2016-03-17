@@ -21,7 +21,7 @@ The purpose of this jargon extension is to implement a similar workflow of `icom
 
 Given the `IRODSAccount` object is _Serialisable_, there are various ways of storing it. Nevertheless, we opt for a flexible and extensible object caching framework like JCS, because of the following reasons:
 
-1. __manage-ability__: JCS offers a simple WebApp for administrators to browse (and even revoke) any cached tokens.
+1. __manage-ability__: JCS offers few simple Servlets for administrators to browse (and even revoke) any cached objects. [This WebApp](https://github.com/donders-research-data-management/rdm-authN-cache) integrates a remote JCS server with those Servlets, providing a very simple web interface for management.
 1. __share-ability__:  JCS offers different plugins for storing and distributing cached objects to server/services, allowing us to use it with a cluster of servers for load-balancing.
 1. __configure-ability__: JCS allows us to define the lifetime of cached objects and the ways they are stored via a configure file.
 
