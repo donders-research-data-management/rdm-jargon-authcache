@@ -1,4 +1,4 @@
-# iRODS jargon authcache extension
+# jargon-authcache: iRODS jargon extension for caching and reusing authenticated IRODSAccount
 
 This package is an IRODS jargon extension for caching and reusing the authenticated [`IRODSAccount`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/connection/IRODSAccount.java) object in the [Apache Java Caching System (JCS)](https://commons.apache.org/proper/commons-jcs/).
 
@@ -15,7 +15,7 @@ This approach works fine with `icommands` given that once the user is authentica
 
 However, for web-based services such as `irods-webdav` and `irods-rest`, the jargon library underneath will authenticate the same set of username and password for every interactions with iCAT, resulting in the unauthorised error due to the reuse of the same (event-based) one-time password.
 
-The purpose of this jargon extension is to mimic the behavior of `icommands`.  That is when a set of username/password is authenticated once, they are cached and reused for sub-sequent interactions between jargon and iRODS.
+The purpose of this jargon extension is to implement a similar workflow of `icommands` for authentication.  That is when a set of username/password is authenticated once, they are cached and reused for sub-sequent interactions between jargon and iRODS.
 
 ### Why JCS?
 
