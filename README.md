@@ -4,18 +4,18 @@ This package is an IRODS jargon extension for caching and reusing the authentica
 
 The extension is achieved by wrapping around the class [`IRODSAccessObjectFactoryImpl`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/pub/IRODSAccessObjectFactoryImpl.java), and extending the `authenticateIRODSAccount` method with two hooks:
 
-1. __Before__ the original `authenticateIRODSAccount` method is called, it tries to retrieve from JCS the authenticated IRODSAccount indexed by the given username/password pair.
-1. __After__ the original `authenticateIRODSAccount` method is successful, it stores authenticated IRODSAccount (retrieved from the [`AuthResponse`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/connection/auth/AuthResponse.java)) into JCS, and index it with a MD5 hash seeded by the username/password pair.
+1. __Before__ the original `authenticateIRODSAccount` method is called, it tries to retrieve from JCS the authenticated `IRODSAccount` indexed by the given username/password pair.
+1. __After__ the original `authenticateIRODSAccount` method is successful, it stores authenticated `IRODSAccount` (retrieved from the [`AuthResponse`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/connection/auth/AuthResponse.java)) into JCS, and index it with a MD5 hash seeded by the username/password pair.
 
 ## Why the extension is made?
 
-In the development of the DI-RDM system, we integrated the one-time password mechanism with iRODS using the PAM authentication.  The end-user is required to sign-in via their own IdP to a (web-based) CMS system from which their valid one-time password can be retrieved for accessing data in the repository. By this approach, we ensure users to be validated via trusted identity providers, before they can start accessing the data.
+In the development of the DI-RDM system, we integrated the one-time password mechanism with iRODS using the PAM authentication. Users are required to sign-in via their own Identity Provider (IdP) to a CMS web-portal from which their valid one-time password can be retrieved.  With the one-time password, users authenticate via a data transfer interface (e.g. `iput/iget`, `WebDAV`, `RESTful`) for accessing data in the repository. By this approach, we ensure users to be validated via trusted identity providers, before they start accessing the data.
 
-This approach works fine with `icommands` given that once the user is authenticated once, a token is stored in `$HOME/.irods/.irodsA`.  During the lifetime of the token, it will be reused for sub-sequent `icommands` without the need to re-authenticate the user again.
+This approach works fine with `icommands` given that once the user is authenticated once, a token is stored in `$HOME/.irods/.irodsA`. During the lifetime of the token, it will be reused for sub-sequent `icommands` without the need to re-authenticate the user again.
 
-However, in web-based services such as `irods-webdav` and `irods-rest`, the jargon library underneath will authenticate the same set of username and password for every interactions with iCAT, resulting in the `401 Unauthorised Error` due to the reuse of the same (event-based) one-time password.
+However, in the web-based interfaces such as `WebDAV` and `RESTful`, the jargon library underneath will authenticate user to iCAT with the same set of username and password for every interactions with iRODS; therefore, resulting in the `401 Unauthorised Error` due to the reuse of the same (event-based) one-time password.
 
-The purpose of this jargon extension is to implement a similar workflow of `icommands` for authentication.  That is when a set of username/password is authenticated once, they are cached and reused for sub-sequent interactions between jargon and iRODS.
+The purpose of this jargon extension is to implement a similar behavior as `icommands` for authentication.  That is when a set of username/password is authenticated once, they are cached and reused for sub-sequent interactions between jargon and iRODS.
 
 ### Why JCS?
 
