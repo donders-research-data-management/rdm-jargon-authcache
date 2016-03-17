@@ -12,7 +12,7 @@
 	<groupId>nl.ru.rdm</groupId>
 	<artifactId>jargon-authcache</artifactId>
 	<version>0.0.2</version>
-	<name>jargon-authcache</name>
+	<name>rdm-jargon-authcache</name>
 	<packaging>jar</packaging>
 	<description>Jargon extention for caching authenticated IRODSAccount with JCS</description>
 	<properties>
