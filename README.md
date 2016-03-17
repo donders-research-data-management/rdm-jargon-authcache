@@ -33,7 +33,7 @@ The extension is packed as a single `jar` file called `jargon-authcache-<version
 
 The example below shows you how to use it with the `irods-rest` package:
 
-### build the extension
+### build the extension jar file
 
 ```bash
 
@@ -49,7 +49,7 @@ $ cd ..
 
 ```
 
-### test the extension
+### test the extension (_optional_)
 
 Use the following Maven command to test the cache against the authentication with one-time password.
 
