@@ -2,11 +2,6 @@
 
 This package is an IRODS jargon extension for caching and reusing the authenticated [`IRODSAccount`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/connection/IRODSAccount.java) object in the [Apache Java Caching System (JCS)](https://commons.apache.org/proper/commons-jcs/).
 
-Apart from interfacing JCS, this extension provides, essentially, another implementation of the `IRODSAccessObjectFactory` interface to wrap around the default implementation [`IRODSAccessObjectFactoryImpl`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/pub/IRODSAccessObjectFactoryImpl.java), and extending the `authenticateIRODSAccount` method with two hooks:
-
-1. __Before__ the default `authenticateIRODSAccount` method is called, it tries to retrieve from JCS the authenticated `IRODSAccount` indexed by the given username/password pair.
-1. __After__ the default `authenticateIRODSAccount` method is successfully executed, it stores authenticated `IRODSAccount` (retrieved from the [`AuthResponse`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/connection/auth/AuthResponse.java)) into JCS, and index it with a MD5 hash seeded by the username/password pair.
-
 ## Why the extension is made?
 
 In the development of the DI-RDM system, we integrated the one-time password mechanism with iRODS using the PAM authentication. Users are required to sign-in via their own Identity Provider (IdP) to a CMS web-portal from which a valid one-time password can be retrieved.  With the one-time password, users authenticate via a data transfer interface (e.g. `iput/iget`, `WebDAV`, `RESTful`) for accessing data in the repository. By this approach, we ensure users to be validated via trusted identity providers, before they start accessing the data.
@@ -24,6 +19,13 @@ Given the `IRODSAccount` object is _Serialisable_, there are various ways of sto
 1. __manage-ability__: JCS offers few simple Servlets for administrators to browse (and even revoke) any cached objects. [This WebApp](https://github.com/donders-research-data-management/rdm-authN-cache) integrates a remote JCS server with those Servlets, providing a very simple web interface for management.
 1. __share-ability__:  JCS offers different plugins for storing and distributing cached objects to server/services, allowing us to use it with a cluster of servers for load-balancing.
 1. __configure-ability__: JCS allows us to define the lifetime of cached objects and the ways they are stored via a configure file.
+
+## How it works?
+
+Apart from interfacing JCS, this extension provides, essentially, another implementation of the `IRODSAccessObjectFactory` interface to wrap around the default implementation [`IRODSAccessObjectFactoryImpl`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/pub/IRODSAccessObjectFactoryImpl.java), and extending the `authenticateIRODSAccount` method with two hooks:
+
+1. __Before__ the default `authenticateIRODSAccount` method is called, it tries to retrieve from JCS the authenticated `IRODSAccount` indexed by the given username/password pair.
+1. __After__ the default `authenticateIRODSAccount` method is successfully executed, it stores authenticated `IRODSAccount` (retrieved from the [`AuthResponse`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/connection/auth/AuthResponse.java)) into JCS, and index it with a MD5 hash seeded by the username/password pair.
 
 ## How to use it?
 
