@@ -1,6 +1,6 @@
 # jargon-authcache: iRODS jargon extension for caching and reusing authenticated IRODSAccount
 
-This package is an IRODS jargon extension for caching and reusing the authenticated [`IRODSAccount`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/connection/IRODSAccount.java) object using the [Apache Java Caching System (JCS)](https://commons.apache.org/proper/commons-jcs/).
+This package is an IRODS jargon extension for caching and reusing the authenticated [`IRODSAccount`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/connection/IRODSAccount.java) object, using the [Apache Java Caching System (JCS)](https://commons.apache.org/proper/commons-jcs/).
 
 ## Why the extension is made?
 
