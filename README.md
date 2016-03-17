@@ -9,7 +9,7 @@ Apart from interfacing JCS, this extension provides, essentially, another implem
 
 ## Why the extension is made?
 
-In the development of the DI-RDM system, we integrated the one-time password mechanism with iRODS using the PAM authentication. Users are required to sign-in via their own Identity Provider (IdP) to a CMS web-portal from which their valid one-time password can be retrieved.  With the one-time password, users authenticate via a data transfer interface (e.g. `iput/iget`, `WebDAV`, `RESTful`) for accessing data in the repository. By this approach, we ensure users to be validated via trusted identity providers, before they start accessing the data.
+In the development of the DI-RDM system, we integrated the one-time password mechanism with iRODS using the PAM authentication. Users are required to sign-in via their own Identity Provider (IdP) to a CMS web-portal from which a valid one-time password can be retrieved.  With the one-time password, users authenticate via a data transfer interface (e.g. `iput/iget`, `WebDAV`, `RESTful`) for accessing data in the repository. By this approach, we ensure users to be validated via trusted identity providers, before they start accessing the data.
 
 This approach works fine with `icommands` given that once the user is authenticated once, a token is stored in `$HOME/.irods/.irodsA`. During the lifetime of the token, it will be reused for sub-sequent `icommands` without the need to re-authenticate the user again.
 
