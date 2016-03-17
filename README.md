@@ -4,8 +4,8 @@ This package is an IRODS jargon extension for caching and reusing the authentica
 
 The extension is achieved by wrapping around the class [`IRODSAccessObjectFactoryImpl`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/pub/IRODSAccessObjectFactoryImpl.java), and extending the `authenticateIRODSAccount` method with two hooks:
 
-1. __Before__ the original `authenticateIRODSAccount` method is called, retrieving authenticated IRODSAccount from JCS.
-1. __After__ the original `authenticateIRODSAccount` method is successful, storing authenticated IRODSAccount (retrieved from the [`AuthResponse`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/connection/auth/AuthResponse.java)) into JCS.
+1. __Before__ the original `authenticateIRODSAccount` method is called, it tries to retrieve authenticated IRODSAccount referred by the same username/password pair from JCS.
+1. __After__ the original `authenticateIRODSAccount` method is successful, it stores authenticated IRODSAccount (retrieved from the [`AuthResponse`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/connection/auth/AuthResponse.java)) into JCS, and index it with a MD5 hash seeded by the username/password pair.
 
 ## Why the extension is made?
 
