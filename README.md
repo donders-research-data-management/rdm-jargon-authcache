@@ -6,7 +6,7 @@ This package is an IRODS jargon extension for caching and reusing the authentica
 
 In the development of the DI-RDM system, we integrated the one-time password mechanism with iRODS using the PAM authentication. Users are required to sign-in via their own Identity Provider (IdP) to a CMS web-portal from which a valid one-time password can be retrieved.  With the one-time password, users authenticate via a data transfer interface (e.g. `iput/iget`, `WebDAV`, `RESTful`) for accessing data in the repository. By this approach, we ensure users to be validated via trusted identity providers, before they start accessing the data.
 
-This approach works fine with `icommands` given that once the user is authenticated once, a token is stored in `$HOME/.irods/.irodsA`. During the lifetime of the token, it will be reused for sub-sequent `icommands` without the need to re-authenticate the user again.
+This approach works fine with `icommands` given that once the user is authenticated, a token is stored in `$HOME/.irods/.irodsA`. During the lifetime of the token, it will be reused for sub-sequent `icommands` without the need to re-authenticate the user again.
 
 However, in the web-based interfaces such as `WebDAV` and `RESTful`, the jargon library underneath will authenticate user to iCAT with the same set of username and password for every interactions with iRODS; therefore, resulting in the `401 Unauthorised Error` due to the reuse of the same (event-based) one-time password.
 
@@ -75,7 +75,7 @@ $ cp ../rdm-jargon-authcache/target/jargon-authcache*.jar src/main/webapp/WEB-IN
 
 ```
 
-### configure irods-rest package
+### configure the irods-rest package
 
 Firstly, add the following dependency in the `pom.xml` of `irods-rest`
 
@@ -105,7 +105,7 @@ with
 
 _Optionally_ add your own `cache.ccf` file in `src/main/resources` to control the behavior of the JCS. Setup and configure the region called `irods_account`, as it's the region used for storing the tokens.
 
-The following example shows you how to use JCS remote cache for storing and sharing tokens:
+The following example uses JCS remote cache for storing and sharing tokens:
 
 ```
 # DEFAULT CACHE REGION
