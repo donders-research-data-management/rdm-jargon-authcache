@@ -47,6 +47,18 @@ $ cd ..
 
 ```
 
+### Testing the package
+
+Use the following Maven command to test the cache against the authentication with one-time password.
+
+```bash
+$ mvn  -Drdm.irods.username=U505173-ru.nl -Drdm.irods.userhotp=123456 test
+```
+
+where the value of `rdm.irods.userhotp` should be replaced by a proper one-time password.
+
+The test case authenticates user two times to iRODS using the same set of username/password.  If the extension works properly, the second authentication should succeed and the test is passed.
+
 ### checkout irods-rest package
 
 ```bash
