@@ -2,12 +2,12 @@
 
 This package is an IRODS jargon extension for caching and reusing the authenticated [`IRODSAccount`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/connection/IRODSAccount.java) object in the [Apache Java Caching System (JCS)](https://commons.apache.org/proper/commons-jcs/).
 
-The extension is achieved by wrapping around the [`IRODSAccessObjectFactoryImpl` class](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/pub/IRODSAccessObjectFactoryImpl.java), and intersecting the `authenticateIRODSAccount` method for
+The extension is achieved by wrapping around the class [`IRODSAccessObjectFactoryImpl`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/pub/IRODSAccessObjectFactoryImpl.java), and extending the `authenticateIRODSAccount` method with two hooks:
 
-- retrieving authenticated IRODSAccount from JCS before the original `authenticateIRODSAccount` method is called, and
-- storing authenticated IRODSAccount into JCS after the original `authenticateIRODSAccount` method is successful.
+1. __Before__ the original `authenticateIRODSAccount` method is called, retrieving authenticated IRODSAccount from JCS.
+1. __After__ the original `authenticateIRODSAccount` method is successful, storing authenticated IRODSAccount (retrieved from the [`AuthResponse`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/connection/auth/AuthResponse.java)) into JCS.
 
-## Why the extension?
+## Why the extension is made?
 
 In the development of the DI-RDM system, we integrated the one-time password mechanism with iRODS using the PAM authentication.  The end-user is required to sign-in via their own IdP to a (web-based) CMS system from which their valid one-time password can be retrieved for accessing data in the repository. By this approach, we ensure users to be validated via trusted identity providers, before they can start accessing the data.
 
@@ -19,11 +19,11 @@ The purpose of this jargon extension is to mimic the behavior of `icommands`.  T
 
 ### Why JCS?
 
-Given the `IRODSAccount` object is _serialisable_, one can simply use various Java mechanism to store it.  However, we opt for a flexible and extensible caching framework like JCS because of the following reasons:
+Given the `IRODSAccount` object is _Serialisable_, there are various ways of storing it. Nevertheless, we opt for a flexible and extensible object caching framework like JCS, because of the following reasons:
 
-1. manageability of the cache: JCS offers a simple WebApp for administrators to browse (and even revoke) any cached tokens.
-1. shareability of the cache:  JCS offers auxiliariy plugins for storing and distributing cached items to multiple server/services, allowing us to cluster a group of servers for load-balancing.
-1. configurable lifetime of the cache: JCS offers a configurable approach to define the token's lifetime
+1. __manage-ability__: JCS offers a simple WebApp for administrators to browse (and even revoke) any cached tokens.
+1. __share-ability__:  JCS offers different plugins for storing and distributing cached objects to server/services, allowing us to use it with a cluster of servers for load-balancing.
+1. __configure-ability__: JCS allows us to define the lifetime of cached objects and the ways they are stored via a configure file.
 
 ## How to use it?
 
