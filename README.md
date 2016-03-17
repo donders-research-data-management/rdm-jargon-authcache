@@ -47,7 +47,7 @@ $ cd ..
 
 ```
 
-### Testing the package
+### test the extension
 
 Use the following Maven command to test the cache against the authentication with one-time password.
 
