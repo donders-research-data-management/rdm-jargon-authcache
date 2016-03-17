@@ -1,0 +1,34 @@
+# enable RMI server 
+registry.host=localhost
+registry.port=1101
+remote.cache.service.port=1101
+remote.cluster.LocalClusterConsistency=true
+
+# default, memory + disk cache
+jcs.default=memory
+jcs.default.cacheattributes=org.apache.commons.jcs.engine.CompositeCacheAttributes
+jcs.default.cacheattributes.MaxObjects=10000
+jcs.default.cacheattributes.MemoryCacheName=org.apache.commons.jcs.engine.memory.lru.LRUMemoryCache
+jcs.default.cacheattributes.UseMemoryShrinker=true
+jcs.default.cacheattributes.MaxMemoryIdleTimeSeconds=3600
+jcs.default.cacheattributes.ShrinkerIntervalSeconds=60
+jcs.default.elementattributes=org.apache.commons.jcs.engine.ElementAttributes
+jcs.default.elementattributes.MaxLife=7200
+jcs.default.elementattributes.IdleTime=1800
+
+# REGION irods_account, pure memory cache
+jcs.region.irods_account=
+jcs.region.irods_account.cacheattributes=org.apache.commons.jcs.engine.CompositeCacheAttributes
+jcs.region.irods_account.cacheattributes.MaxObjects=1000
+jcs.region.irods_account.cacheattributes.UseMemoryShrinker=true
+jcs.region.irods_account.cacheattributes.MaxMemoryIdleTime=3600
+jcs.region.irods_account.cacheattributes.ShrinkerInterval=60
+jcs.region.irods_account.elementattributes=org.apache.commons.jcs.engine.ElementAttributes
+jcs.region.irods_account.elementattributes.IsEternal=false
+jcs.region.irods_account.elementattributes.MaxLife=7200
+jcs.region.irods_account.elementattributes.IdleTime=1800
+
+# disk cache properties
+jcs.auxiliary.DC=org.apache.commons.jcs.auxiliary.disk.DiskCacheFactory
+jcs.auxiliary.DC.attributes=org.apache.commons.jcs.auxiliary.disk.DiskCacheAttributes
+jcs.auxiliary.DC.attributes.DiskPath=/tmp/cache/jcs
