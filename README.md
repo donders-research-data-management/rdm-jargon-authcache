@@ -31,7 +31,7 @@ Apart from interfacing JCS, this extension provides, essentially, another implem
 
 The extension is packed as a single `jar` file called `jargon-authcache-<version>.jar`.  Simply drop this file into the library of your project, and use the class `nl.ru.rdm.authcache.IRODSAccessObjectFactoryJCS` instead of `org.irods.jargon.core.pub.IRODSAccessObjectFactoryImpl` to initialise the [`IRODSAccessObjectFactory`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/pub/IRODSAccessObjectFactory.java) object.
 
-If you build `irods-rest` packages, you could follow the example step below:
+The example below shows you how to use it with the `irods-rest` package:
 
 ### build the extension
 
@@ -134,3 +134,13 @@ jcs.auxiliary.Remote.attributes.FailoverServers=localhost:1101
 jcs.auxiliary.Remote.attributes.RemoveUponRemotePut=true
 jcs.auxiliary.Remote.attributes.GetOnly=false
 ```
+
+### build the irods-rest package
+
+Build the `irods-rest` with the usual Maven command:
+
+```bash
+$ mvn package -e -Dmaven.test.skip=true
+```
+
+and deploy the resulting `target/irods-rest.war` to the application server.
