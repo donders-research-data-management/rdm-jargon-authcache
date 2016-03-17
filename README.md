@@ -61,7 +61,7 @@ where the value of `rdm.irods.userhotp` should be replaced by a proper one-time 
 
 The test case authenticates user two times to iRODS using the same set of username/password.  If the extension works properly, the second authentication should succeed and the test is passed.
 
-### checkout irods-rest package
+### checkout the irods-rest package
 
 ```bash
 
