@@ -25,7 +25,7 @@ Given the `IRODSAccount` object is _Serialisable_, there are various ways of sto
 Apart from interfacing JCS, this extension provides, essentially, another implementation of the `IRODSAccessObjectFactory` interface to wrap around the class [`IRODSAccessObjectFactoryImpl`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/pub/IRODSAccessObjectFactoryImpl.java), the default `IRODSAccessObjectFactory` implementation provided by jargon. It also extends the `authenticateIRODSAccount` method with the following hooks to JCS:
 
 1. __Before__ the default `authenticateIRODSAccount` method is called, it tries to retrieve from JCS the authenticated `IRODSAccount` indexed by the given username/password pair.
-1. __After__ the default `authenticateIRODSAccount` method is successfully executed, it stores authenticated `IRODSAccount` (retrieved from the [`AuthResponse`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/connection/auth/AuthResponse.java)) into JCS, and index it with a MD5 hash seeded by the username/password pair.
+1. __After__ the default `authenticateIRODSAccount` method is successfully executed (_note: this default method will by-pass the actual authentication to iRODS if the `IRODSAccount` given to the method is an authenticated one._), it stores authenticated `IRODSAccount` (retrieved from the [`AuthResponse`](https://github.com/DICE-UNC/jargon/blob/master/jargon-core/src/main/java/org/irods/jargon/core/connection/auth/AuthResponse.java)) into JCS, and index it with a MD5 hash seeded by the username/password pair.
 
 ## How to use it?
 
